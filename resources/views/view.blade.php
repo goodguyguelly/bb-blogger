@@ -106,6 +106,16 @@
                     <img src="{{Avatar::create(Auth::user()->name)->setShape('square')->setFontSize(60)->setDimension(150,150)->toBase64()}}" class="img-responsive rounded shadow-item mb-3" />
                     <h4>{{ Auth::user()->name }}</h4>
                     <span>{{ $userBlogs }} posts, {{ $userComments }} comments</span>
+                    <br/>
+                    <a class="btn btn-warning btn-sm" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
                 <hr/>
             @endif
