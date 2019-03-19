@@ -99,9 +99,13 @@ Route::get('/blog/view/{slug}', function ($slug){
     $blogs = \App\BlogPost::getBlogsForTopComments();
     $blogsOnTop = $blogs['blogs'];
     $allComments = $blogs['comments']->where('blogpost_id', $blog->id);
-    $userBlogs = $blogs['userBlogs'];
-    $userComments = $blogs['userComments'];
-    return view('view', compact('blog','comments', 'user', 'blogsOnTop', 'allComments', 'userBlogs', 'userComments'));
+    if(Auth::check()){
+        $userBlogs = $blogs['userBlogs'];
+        $userComments = $blogs['userComments'];
+        return view('view', compact('blog','comments', 'user', 'blogsOnTop', 'allComments', 'userBlogs', 'userComments'));
+    }
+
+    return view('view', compact('blog','comments', 'user', 'blogsOnTop', 'allComments'));
 })->name('blog.view');
 
 Auth::routes();
